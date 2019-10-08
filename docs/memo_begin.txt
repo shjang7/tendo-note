@@ -1,0 +1,25 @@
+Title, description, due-date, priority / notes, checklist
+
+projects | todos
+
+some sort of ‘default’ project
+
+separate modules i.e. creating new todos, setting todos as complete, changing todo priority etc.) | DOM-related stuff
+
+<ui>
+• view all projects
+• view all todos in each project (probably just the title and duedate.. perhaps changing color for different priorities)
+• expand a single todo to see/edit it’s details
+• User can edit the details of a to-do item
+• delete a todo
+
+Use localStorage to save user’s projects and todos between sessions.
+
+https://www.any.do/
+https://todoist.com/tour
+
+local storage
+
+design
+
+scss
