@@ -23,12 +23,14 @@ const display = (() => {
     projectGroup.appendChild(project);
   };
 
-  const addTodo = ({ title }) => {
+  const addTodo = ({ title , date }) => {
     const todo = createTag({ tag: 'div', classes: 'to-do' });
-    const titleTag = createTag({ tag: 'h4', text: title });
+		const titleTag = createTag({ tag: 'h4', text: title });
+		const dateTag = createTag({tag: 'div', classes: 'date', text: date});
 
-    todo.appendChild(titleTag);
-    todoGroup.appendChild(todo);
+		todo.appendChild(titleTag);
+		todo.appendChild(dateTag);
+		todoGroup.appendChild(todo);
   };
 
   const headerSet = (header, word) => {

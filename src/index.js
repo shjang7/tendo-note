@@ -6,7 +6,7 @@ const factoryProject = [
   { projectName: 'second project' },
 ];
 
-const todoProject = [
+const factoryTodo = [
   {
     title: 'first project one',
     projectName: 'first project',
@@ -24,18 +24,25 @@ const todoProject = [
   },
 ];
 
-// local
-// first project == current project.
+window.localStorage.setItem('project', JSON.stringify(factoryProject));
+
+// console.log(JSON.parse(window.localStorage.getItem('project')));
+
+window.localStorage.setItem('todo', JSON.stringify(factoryTodo));
+// console.log(JSON.parse(window.localStorage.getItem('todo')));
+
+window.localStorage.setItem('currentProject', 'first project');
+
+projectController.setInfoFromStorage();
+todoController.setInfoFromStorage();
 
 display.setMainDisplay();
-projectController.createProject('First Project');
 const testArray = projectController.getProjectList();
 
 testArray.forEach((element) => {
   display.addProject(element);
 });
 
-todoController.createTodo({ title: 'Tenda App' });
 const todoArray = todoController.getTodoList();
 todoArray.forEach((element) => {
   console.log(element);

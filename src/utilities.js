@@ -2,24 +2,31 @@
 const project = projectName => ({ projectName });
 
 const projectController = (() => {
-  const projectList = [];
+  let projectList = [];
   const createProject = (data) => {
     projectList.push(project(data));
   };
 
-  const getProjectList = () => projectList;
-  return { createProject, getProjectList };
+	const getProjectList = () => projectList;
+	const setInfoFromStorage = () => {
+		projectList = JSON.parse(window.localStorage.getItem('project'));
+	};
+	return { createProject, getProjectList, setInfoFromStorage };
 })();
 
 const todo = ({ title }) => ({ title });
 
 const todoController = (() => {
-  const todoList = [];
+  let todoList = [];
   const createTodo = (data) => {
     todoList.push(todo(data));
   };
-  const getTodoList = () => todoList;
-  return { createTodo, getTodoList };
+	const getTodoList = () => todoList;
+	const setInfoFromStorage = () => {
+		todoList = JSON.parse(window.localStorage.getItem('todo'));
+	};
+	return { createTodo, getTodoList , setInfoFromStorage };
+
 })();
 
 
