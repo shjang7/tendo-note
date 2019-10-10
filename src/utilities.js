@@ -1,36 +1,26 @@
 // create project
-const project = (projectName) => {
-	return { projectName };
-};
+const project = projectName => ({ projectName });
 
 const projectController = (() => {
-	let projectList = [];
-	const createProject = (data) => {
-		projectList.push (project(data));
-	};
+  const projectList = [];
+  const createProject = (data) => {
+    projectList.push(project(data));
+  };
 
-	const getProjectList = () => {
-		return projectList;
-	};
-	return { createProject, getProjectList };
-
+  const getProjectList = () => projectList;
+  return { createProject, getProjectList };
 })();
 
-const todo = ({ title }) => {
-	return { title };
-};
+const todo = ({ title }) => ({ title });
 
 const todoController = (() => {
-	let todoList = [];
-	const createTodo = (data) => {
-		todoList.push (todo(data));
-	};
-	const getTodoList = () => {
-		return todoList;
-	};
-	return { createTodo, getTodoList };
+  const todoList = [];
+  const createTodo = (data) => {
+    todoList.push(todo(data));
+  };
+  const getTodoList = () => todoList;
+  return { createTodo, getTodoList };
 })();
-
 
 
 // addProject({ title: 'a' });
@@ -38,5 +28,4 @@ const todoController = (() => {
 // sending to display: call
 
 // create todo list
-export  { projectController, todoController };
-
+export { projectController, todoController };
