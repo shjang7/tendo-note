@@ -39,34 +39,24 @@ todoController.setInfoFromStorage();
 display.setMainDisplay();
 /////
 
-const testArray = projectController.getProjectList();
-
-testArray.forEach((element) => {
-  display.addProject(element);
-});
+const projectArray = projectController.getProjectList();
+display.addProjectGroup(projectArray);
 
 const todoArray = todoController.getTodoListForProject();
-todoArray.forEach((element) => {
-  // console.log(element);
-  display.addTodo(element);
-});
-////
+display.addTodoGroup(todoArray);
 
 const updateCurrentProject = (tag) => {
   const projectId = display.updateCurrentProject(tag);
   todoController.updateTodoListForProject(projectId);
   const todoArray = todoController.getTodoListForProject();
-  todoArray.forEach((element) => {
-    // console.log(element);
-    display.addTodo(element);
-  });
 
+    // console.log(element);
+    display.addTodoGroup(todoArray);
 }
 
 const createEvents = (word) => {
   if (word === 'project') {
     const tags = display.getProjectList();
-    console.log(tags);
     if (tags.length > 0) {
       tags.forEach(tag => {
         tag.addEventListener('click', () => updateCurrentProject(tag));

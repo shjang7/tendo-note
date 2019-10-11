@@ -30,12 +30,12 @@ const todoController = (() => {
     },
     {
       title: 'first project two',
-      projectId: 'project-2',
+      projectId: 'project-1',
       date: '03/nov/2019',
     },
     {
       title: 'second project one',
-      projectId: 'project-3',
+      projectId: 'project-2',
       date: '03/nov/2019',
     },
   ];
@@ -45,9 +45,9 @@ const todoController = (() => {
     todoList.push(todo(data));
   };
   const updateTodoListForProject = (id) => {
-    todoListForProject = [];
+		todoListForProject = [];
     todoList.forEach(element => {
-      console.log('for', id, element.projectId);
+			console.log(id, element.projectId);
       if (id === element.projectId) {
         todoListForProject.push(element);
       }

@@ -26,9 +26,9 @@ const display = (() => {
     return projectId;
   }
 
-  const addProject = ({ projectName }) => {
-    const id = getProjectId();
-    const project = createTag({ tag: 'div', id: `project-${id}`, classes: 'project-content' });
+  const addProject = ({ projectName, projectId = 0 }) => {
+		if (projectId === 0)projectId = getProjectId();
+    const project = createTag({ tag: 'div', id: `${projectId}`, classes: 'project-content' });
 
     project.textContent = projectName;
     projectGroup.appendChild(project);
@@ -42,7 +42,24 @@ const display = (() => {
 		todo.appendChild(titleTag);
 		todo.appendChild(dateTag);
 		todoGroup.appendChild(todo);
-  };
+	};
+  const addProjectGroup = (projectArray) => {
+		projectArray.forEach((element) => {
+		  addProject(element);
+	  });
+	}
+
+	const addTodoGroup = (todoArray) => {
+		// remove()
+		while (todoGroup.firstChild) {
+			todoGroup.removeChild(todoGroup.firstChild);
+		};
+	  todoArray.forEach((element) => {
+		// console.log(element);
+	  	addTodo(element);
+		});
+	////
+	}
 
   const headerSet = (header, word) => {
     header.appendChild(createTag({ tag: 'h1', classes: 'h-title', text: word }));
@@ -111,7 +128,7 @@ const display = (() => {
   };
 
   return {
-    setMainDisplay, addProject, addTodo, getProjectList, updateCurrentProject,
+    setMainDisplay, addProject, getProjectList, updateCurrentProject, addTodoGroup, addProjectGroup
   };
 })();
 
