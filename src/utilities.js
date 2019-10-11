@@ -8,6 +8,7 @@ const projectController = (() => {
   ];
   const addProjectList = (data) => {
     projectList.push(project(data));
+    window.localStorage.setItem('project', JSON.stringify(projectList));
   };
 
 	const getProjectList = () => projectList;
@@ -43,11 +44,11 @@ const todoController = (() => {
 
   const addTodoList = (data) => {
     todoList.push(todo(data));
+    window.localStorage.setItem('todo', JSON.stringify(todoList));
   };
   const updateTodoListForProject = (id) => {
 		todoListForProject = [];
     todoList.forEach(element => {
-			console.log(id, element.projectId);
       if (id === element.projectId) {
         todoListForProject.push(element);
       }

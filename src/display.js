@@ -16,25 +16,29 @@ const display = (() => {
   const projectGroup = createTag({ tag: 'div', classes: 'project-content-group' });
   const todoGroup = createTag({ tag: 'div', classes: 'todo-content-group' });
 
-  const getProjectId = () => {
-    let projectId = 1;
+  const getNewProjectId = () => {
+    let projectId;
     if (window.localStorage.getItem('projectId')) {
-      projectId = Number(window.localStorage.getItem('projectId'));
-      // console.log(projectId);
+      projectId = window.localStorage.getItem('projectId');
+      const newNumber = projectId.split('-')[1];
+      projectId = `project-${newNumber}`;
+      // debugger;
+    } else {
+      projectId = 'project-1';
     }
-    window.localStorage.setItem('projectId', projectId + 1);
+    window.localStorage.setItem('projectId', projectId);
     return projectId;
   }
 
   const addProject = ({ projectName, projectId = 0 }) => {
-		if (projectId === 0)projectId = getProjectId();
+		if (projectId === 0) projectId = getNewProjectId();
     const project = createTag({ tag: 'div', id: `${projectId}`, classes: 'project-content' });
 
     project.textContent = projectName;
     projectGroup.appendChild(project);
   };
 
-  const addTodo = ({ title , date }) => {
+  const addTodo = ({ title, date }) => {
     const todo = createTag({ tag: 'div', classes: 'todo-content' });
 		const titleTag = createTag({ tag: 'h4', classes: 'title', text: title });
 		const dateTag = createTag({tag: 'div', classes: 'date', text: date});
@@ -50,15 +54,12 @@ const display = (() => {
 	}
 
 	const addTodoGroup = (todoArray) => {
-		// remove()
 		while (todoGroup.firstChild) {
 			todoGroup.removeChild(todoGroup.firstChild);
 		};
 	  todoArray.forEach((element) => {
-		// console.log(element);
 	  	addTodo(element);
 		});
-	////
 	}
 
   const headerSet = (header, word) => {
@@ -66,13 +67,31 @@ const display = (() => {
     header.appendChild(createTag({ tag: 'h1', classes: 'create-form', text: '+' }));
   };
 
+  const exchangeCapitalLetter = (word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
+  const exchangeDashToCapital = (word) => {
+    const words = word.split('-');
+    if (words.length > 1) {
+      words[1] = exchangeCapitalLetter(words[1]);
+    }
+    return words.join('');
+  }
+
+  const exchangeSpaceToDash = (word) => {
+    return word.split(' ').join('-');
+  }
+
   const projectForm = () => {
-    const form = createTag({ tag: 'form', classes: 'project-form' });
+    const varName = 'project';
+    const form = createTag({ tag: 'form', classes: exchangeSpaceToDash(`${varName} form`) });
     const fieldset = createTag({ tag: 'fieldset' });
     form.appendChild(fieldset);
     let field = createTag({ tag: 'div', classes: 'field' });
-    let input = createTag({ tag: 'input', classes: 'project-name' });
+    let input = createTag({ tag: 'input', classes: exchangeSpaceToDash('project name') });
     input.setAttribute('placeholder', 'project name');
+    input.name = exchangeSpaceToDash('project name');
     field.appendChild(input);
     fieldset.appendChild(field);
     return form;
@@ -85,12 +104,14 @@ const display = (() => {
     let field = createTag({ tag: 'div', classes: 'field' });
     let input = createTag({ tag: 'input', classes: 'title' });
     input.setAttribute('placeholder', 'title');
+    input.name = 'title';
     field.appendChild(input);
     fieldset.appendChild(field);
 
     field = createTag({ tag: 'div', classes: 'field' });
     input = createTag({ tag: 'input', classes: 'date' });
     input.setAttribute('placeholder', 'date');
+    input.name = 'date';
     field.appendChild(input);
     fieldset.appendChild(field);
 
@@ -101,16 +122,16 @@ const display = (() => {
     return projectGroup.childNodes;
 	}
 
-	const submitFormProject = () => {
-		// return submitformProject
-	};
-
-	const submitFormTodo = (fieldset) => {
-		// return
+	const submitForm = (fieldset, projectId) => {
+    let data = {};
+    if(projectId) data.projectId = projectId;
 		fieldset.childNodes.forEach(field => {
-			const value = field.querySelector('input').value;
-			window.localStorage.setItem('test-todo', value);
+      const selector = field.querySelector('input');
+      const key = exchangeDashToCapital(selector.name);
+			const value = selector.value;
+      data[key] = value;
 		});
+    return data;
 	};
 
 	const makeBlankForm = (fieldset) => {
@@ -154,7 +175,7 @@ const display = (() => {
 
   return {
 		setMainDisplay, addProject, getProjectList, updateCurrentProject, addTodoGroup, addProjectGroup, getFormData,
-		submitFormProject, submitFormTodo, makeBlankForm,
+		submitForm, makeBlankForm,
   };
 })();
 

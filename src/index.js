@@ -31,7 +31,7 @@ const factoryTodo = [
 // window.localStorage.setItem('todo', JSON.stringify(factoryTodo));
 // // console.log(JSON.parse(window.localStorage.getItem('todo')));
 //
-window.localStorage.setItem('currentProject', 'project-1');
+// window.localStorage.setItem('currentProject', 'project-1');
 
 projectController.setInfoFromStorage();
 todoController.setInfoFromStorage();
@@ -47,24 +47,31 @@ display.addTodoGroup(todoArray);
 
 const updateCurrentProject = (tag) => {
   const projectId = display.updateCurrentProject(tag);
+  window.localStorage.setItem('currentProjectId', projectId);
   todoController.updateTodoListForProject(projectId);
   const todoArray = todoController.getTodoListForProject();
+  display.addTodoGroup(todoArray);
+}
 
-    // console.log(element);
-    display.addTodoGroup(todoArray);
+const submitFormProject = (fieldset) => {
+  const data = display.submitForm(fieldset);
+  projectController.addProjectList(data);
+}
+
+const submitFormTodo = (fieldset) => {
+  const projectId = window.localStorage.getItem('currentProjectId');
+  const data = display.submitForm(fieldset, projectId);
+  todoController.addTodoList(data);
 }
 
 const createEvents = (word) => {
 	const {fieldset, open } = display.getFormData(word);
-	fieldset.addEventListener('keyPress', e => {
+	fieldset.addEventListener('keypress', e => {
 		if(e.keyCode === 13) {
-			if(word === 'project') {
-				display.submitFormProject(fieldset);
-			}
-			if (word === 'todo') {
-				display.submitFormTodo(fieldset);
-			};
+			if(word === 'project') submitFormProject(fieldset);
+			if (word === 'todo') submitFormTodo(fieldset);
 			display.makeBlankForm(fieldset);
+      window.location.reload();
 		};
 	});
   if (word === 'project') {
