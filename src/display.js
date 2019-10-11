@@ -99,7 +99,25 @@ const display = (() => {
 
   const getProjectList = () => {
     return projectGroup.childNodes;
-  }
+	}
+
+	const submitFormProject = () => {
+		// return submitformProject
+	};
+
+	const submitFormTodo = (fieldset) => {
+		// return
+		fieldset.childNodes.forEach(field => {
+			const value = field.querySelector('input').value;
+			window.localStorage.setItem('test-todo', value);
+		});
+	};
+
+	const makeBlankForm = (fieldset) => {
+		fieldset.childNodes.forEach(field => {
+			field.querySelector('input').value = '';
+		});
+	};
 
   const updateCurrentProject = (newTag) => {
     const previous = projectGroup.querySelector('.current-project');
@@ -108,7 +126,14 @@ const display = (() => {
     }
     newTag.classList.add('current-project');
     return newTag.id;
-  }
+	}
+
+	const getFormData = (id) => {
+		const getIdInfo = document.getElementById(id);
+		const open = getIdInfo.querySelector('.create-form');
+		const fieldset = getIdInfo.querySelector('fieldset');
+		return { fieldset, open};
+	}
 
   const setMainDisplay = () => {
     const projectContainer = createTag({ tag: 'section', id: 'project', classes: 'col-md-4 primary-bg' });
@@ -128,7 +153,8 @@ const display = (() => {
   };
 
   return {
-    setMainDisplay, addProject, getProjectList, updateCurrentProject, addTodoGroup, addProjectGroup
+		setMainDisplay, addProject, getProjectList, updateCurrentProject, addTodoGroup, addProjectGroup, getFormData,
+		submitFormProject, submitFormTodo, makeBlankForm,
   };
 })();
 

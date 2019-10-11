@@ -55,6 +55,18 @@ const updateCurrentProject = (tag) => {
 }
 
 const createEvents = (word) => {
+	const {fieldset, open } = display.getFormData(word);
+	fieldset.addEventListener('keyPress', e => {
+		if(e.keyCode === 13) {
+			if(word === 'project') {
+				display.submitFormProject(fieldset);
+			}
+			if (word === 'todo') {
+				display.submitFormTodo(fieldset);
+			};
+			display.makeBlankForm(fieldset);
+		};
+	});
   if (word === 'project') {
     const tags = display.getProjectList();
     if (tags.length > 0) {
