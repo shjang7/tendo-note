@@ -24,27 +24,59 @@ const factoryTodo = [
   },
 ];
 
-window.localStorage.setItem('project', JSON.stringify(factoryProject));
-
-// console.log(JSON.parse(window.localStorage.getItem('project')));
-
-window.localStorage.setItem('todo', JSON.stringify(factoryTodo));
-// console.log(JSON.parse(window.localStorage.getItem('todo')));
-
-window.localStorage.setItem('currentProject', 'first project');
+// window.localStorage.setItem('project', JSON.stringify(factoryProject));
+//
+// // console.log(JSON.parse(window.localStorage.getItem('project')));
+//
+// window.localStorage.setItem('todo', JSON.stringify(factoryTodo));
+// // console.log(JSON.parse(window.localStorage.getItem('todo')));
+//
+window.localStorage.setItem('currentProject', 'project-1');
 
 projectController.setInfoFromStorage();
 todoController.setInfoFromStorage();
 
 display.setMainDisplay();
+/////
+
 const testArray = projectController.getProjectList();
 
 testArray.forEach((element) => {
   display.addProject(element);
 });
 
-const todoArray = todoController.getTodoList();
+const todoArray = todoController.getTodoListForProject();
 todoArray.forEach((element) => {
-  console.log(element);
+  // console.log(element);
   display.addTodo(element);
 });
+////
+
+const updateCurrentProject = (tag) => {
+  const projectId = display.updateCurrentProject(tag);
+  todoController.updateTodoListForProject(projectId);
+  const todoArray = todoController.getTodoListForProject();
+  todoArray.forEach((element) => {
+    // console.log(element);
+    display.addTodo(element);
+  });
+
+}
+
+const createEvents = (word) => {
+  if (word === 'project') {
+    const tags = display.getProjectList();
+    console.log(tags);
+    if (tags.length > 0) {
+      tags.forEach(tag => {
+        tag.addEventListener('click', () => updateCurrentProject(tag));
+      })
+      updateCurrentProject(tags[tags.length - 1]);
+    }
+  }
+
+}
+
+['project', 'todo'].forEach(word => createEvents(word));
+
+// setCurrentProject();

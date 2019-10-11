@@ -16,16 +16,27 @@ const display = (() => {
   const projectGroup = createTag({ tag: 'div', classes: 'project-content-group' });
   const todoGroup = createTag({ tag: 'div', classes: 'todo-content-group' });
 
+  const getProjectId = () => {
+    let projectId = 1;
+    if (window.localStorage.getItem('projectId')) {
+      projectId = Number(window.localStorage.getItem('projectId'));
+      // console.log(projectId);
+    }
+    window.localStorage.setItem('projectId', projectId + 1);
+    return projectId;
+  }
+
   const addProject = ({ projectName }) => {
-    // receive project
-    const project = createTag({ tag: 'div', classes: 'project test-project' });
+    const id = getProjectId();
+    const project = createTag({ tag: 'div', id: `project-${id}`, classes: 'project-content' });
+
     project.textContent = projectName;
     projectGroup.appendChild(project);
   };
 
   const addTodo = ({ title , date }) => {
-    const todo = createTag({ tag: 'div', classes: 'to-do' });
-		const titleTag = createTag({ tag: 'h4', text: title });
+    const todo = createTag({ tag: 'div', classes: 'todo-content' });
+		const titleTag = createTag({ tag: 'h4', classes: 'title', text: title });
 		const dateTag = createTag({tag: 'div', classes: 'date', text: date});
 
 		todo.appendChild(titleTag);
@@ -34,7 +45,7 @@ const display = (() => {
   };
 
   const headerSet = (header, word) => {
-    header.appendChild(createTag({ tag: 'h1', classes: 'h-title' }));
+    header.appendChild(createTag({ tag: 'h1', classes: 'h-title', text: word }));
     header.appendChild(createTag({ tag: 'h1', classes: 'create-form', text: '+' }));
   };
 
@@ -42,10 +53,11 @@ const display = (() => {
     const form = createTag({ tag: 'form', classes: 'project-form' });
     const fieldset = createTag({ tag: 'fieldset' });
     form.appendChild(fieldset);
-    const input = document.createElement('input');
-    input.classList.add('project-name');
+    let field = createTag({ tag: 'div', classes: 'field' });
+    let input = createTag({ tag: 'input', classes: 'project-name' });
     input.setAttribute('placeholder', 'project name');
-    fieldset.appendChild(input);
+    field.appendChild(input);
+    fieldset.appendChild(field);
     return form;
   };
 
@@ -53,22 +65,37 @@ const display = (() => {
     const form = createTag({ tag: 'form', classes: 'todo-form' });
     const fieldset = createTag({ tag: 'fieldset' });
     form.appendChild(fieldset);
-    let input = document.createElement('input');
-    input.classList.add('title');
+    let field = createTag({ tag: 'div', classes: 'field' });
+    let input = createTag({ tag: 'input', classes: 'title' });
     input.setAttribute('placeholder', 'title');
-    fieldset.appendChild(input);
+    field.appendChild(input);
+    fieldset.appendChild(field);
 
-    input = document.createElement('input');
-    input.classList.add('date');
+    field = createTag({ tag: 'div', classes: 'field' });
+    input = createTag({ tag: 'input', classes: 'date' });
     input.setAttribute('placeholder', 'date');
-    fieldset.appendChild(input);
+    field.appendChild(input);
+    fieldset.appendChild(field);
 
     return form;
   };
 
+  const getProjectList = () => {
+    return projectGroup.childNodes;
+  }
+
+  const updateCurrentProject = (newTag) => {
+    const previous = projectGroup.querySelector('.current-project');
+    if (previous) {
+      previous.classList.remove('current-project');
+    }
+    newTag.classList.add('current-project');
+    return newTag.id;
+  }
+
   const setMainDisplay = () => {
-    const projectContainer = createTag({ tag: 'section', id: 'project', classes: 'col-md-4 h-100 test-red-bg' });
-    const todoContainer = createTag({ tag: 'section', id: 'todo', classes: 'col-md-8 h-100 test-blue-bg' });
+    const projectContainer = createTag({ tag: 'section', id: 'project', classes: 'col-md-4 primary-bg' });
+    const todoContainer = createTag({ tag: 'section', id: 'todo', classes: 'col-md-8 secondary-bg' });
     const mainContainer = document.querySelector('#content');
     mainContainer.classList.add('row');
     mainContainer.appendChild(projectContainer);
@@ -83,7 +110,9 @@ const display = (() => {
     return mainContainer;
   };
 
-  return { setMainDisplay, addProject, addTodo };
+  return {
+    setMainDisplay, addProject, addTodo, getProjectList, updateCurrentProject,
+  };
 })();
 
 export default display;

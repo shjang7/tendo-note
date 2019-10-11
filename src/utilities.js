@@ -1,31 +1,69 @@
 // create project
-const project = projectName => ({ projectName });
+const project = ({ projectName, projectId }) => ({ projectName, projectId });
 
 const projectController = (() => {
-  let projectList = [];
-  const createProject = (data) => {
+  let projectList = [
+    { projectName: 'first project', projectId: 'project-1' },
+    { projectName: 'second project', projectId: 'project-2' },
+  ];
+  const addProjectList = (data) => {
     projectList.push(project(data));
   };
 
 	const getProjectList = () => projectList;
 	const setInfoFromStorage = () => {
-		projectList = JSON.parse(window.localStorage.getItem('project'));
+    if (window.localStorage.getItem('project')) {
+      projectList = JSON.parse(window.localStorage.getItem('project'));
+    }
 	};
-	return { createProject, getProjectList, setInfoFromStorage };
+	return { addProjectList, getProjectList, setInfoFromStorage };
 })();
 
-const todo = ({ title }) => ({ title });
+const todo = ({ title, projectId, date }) => ({ title, projectId, date });
 
 const todoController = (() => {
-  let todoList = [];
-  const createTodo = (data) => {
+  let todoList = [
+    {
+      title: 'first project one',
+      projectId: 'project-1',
+      date: '03/nov/2019',
+    },
+    {
+      title: 'first project two',
+      projectId: 'project-2',
+      date: '03/nov/2019',
+    },
+    {
+      title: 'second project one',
+      projectId: 'project-3',
+      date: '03/nov/2019',
+    },
+  ];
+  let todoListForProject = [];
+
+  const addTodoList = (data) => {
     todoList.push(todo(data));
   };
+  const updateTodoListForProject = (id) => {
+    todoListForProject = [];
+    todoList.forEach(element => {
+      console.log('for', id, element.projectId);
+      if (id === element.projectId) {
+        todoListForProject.push(element);
+      }
+    })
+  };
 	const getTodoList = () => todoList;
+  const getTodoListForProject = () => todoListForProject;
 	const setInfoFromStorage = () => {
-		todoList = JSON.parse(window.localStorage.getItem('todo'));
+    if(window.localStorage.getItem('todo')) {
+  		todoList = JSON.parse(window.localStorage.getItem('todo'));
+    }
 	};
-	return { createTodo, getTodoList , setInfoFromStorage };
+	return {
+    addTodoList, getTodoList , setInfoFromStorage, updateTodoListForProject,
+    getTodoListForProject,
+  };
 
 })();
 
