@@ -24,8 +24,8 @@ const interfaceMain = (() => {
   };
 
   const submitFormTodo = (form) => {
-    const projectId = logicController.getCurrentProject();
-    const data = displayController.getFormData(form, projectId);
+		const data = displayController.getFormData(form);
+		data.projectId = logicController.getCurrentProject();
     logicController.addTodoList(data);
   };
 

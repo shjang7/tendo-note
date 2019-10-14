@@ -79,9 +79,8 @@ const formController = (() => {
     return { form, open };
   };
 
-  const getFormData = (form, projectId) => {
+  const getFormData = (form) => {
     const data = {};
-    if (projectId) data.projectId = projectId;
     form.querySelectorAll('.field').forEach((field) => {
       const selector = field.querySelector('input') || field.querySelector('textarea');
       if (selector.type === 'radio') {
