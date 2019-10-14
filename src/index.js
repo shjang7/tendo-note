@@ -1,91 +1,123 @@
-import display from './display';
-import { projectController, todoController } from './utilities';
+import displayController from './display_controller';
+import logicController from './logic_controller';
 
-const factoryProject = [
-  { projectName: 'first project' },
-  { projectName: 'second project' },
-];
+const interfaceMain = (() => {
+  const projectSetting = () => {
+    const projectArray = logicController.getProjectList();
+    displayController.addProjectGroup(projectArray);
+  };
 
-const factoryTodo = [
-  {
-    title: 'first project one',
-    projectName: 'first project',
-    date: '03/nov/2019',
-  },
-  {
-    title: 'first project two',
-    projectName: 'first project',
-    date: '03/nov/2019',
-  },
-  {
-    title: 'first project three',
-    projectName: 'first project',
-    date: '03/nov/2019',
-  },
-];
+  const todoSetting = () => {
+    const todoArray = logicController.getTodoListForProject();
+    displayController.addTodoGroup(todoArray);
+  };
 
-// window.localStorage.setItem('project', JSON.stringify(factoryProject));
-//
-// // console.log(JSON.parse(window.localStorage.getItem('project')));
-//
-// window.localStorage.setItem('todo', JSON.stringify(factoryTodo));
-// // console.log(JSON.parse(window.localStorage.getItem('todo')));
-//
-// window.localStorage.setItem('currentProject', 'project-1');
+  const updateCurrentProject = (btn) => {
+    const projectId = displayController.updateCurrentProject(btn);
+    logicController.updateTodoListForProject(projectId);
+    todoSetting();
+  };
 
-projectController.setInfoFromStorage();
-todoController.setInfoFromStorage();
+  const submitFormProject = (form) => {
+    const data = displayController.getFormData(form);
+    logicController.addProjectList(data);
+  };
 
-display.setMainDisplay();
-/////
+  const submitFormTodo = (form) => {
+    const projectId = logicController.getCurrentProject();
+    const data = displayController.getFormData(form, projectId);
+    logicController.addTodoList(data);
+  };
 
-const projectArray = projectController.getProjectList();
-display.addProjectGroup(projectArray);
-
-const todoArray = todoController.getTodoListForProject();
-display.addTodoGroup(todoArray);
-
-const updateCurrentProject = (tag) => {
-  const projectId = display.updateCurrentProject(tag);
-  window.localStorage.setItem('currentProjectId', projectId);
-  todoController.updateTodoListForProject(projectId);
-  const todoArray = todoController.getTodoListForProject();
-  display.addTodoGroup(todoArray);
-}
-
-const submitFormProject = (fieldset) => {
-  const data = display.submitForm(fieldset);
-  projectController.addProjectList(data);
-}
-
-const submitFormTodo = (fieldset) => {
-  const projectId = window.localStorage.getItem('currentProjectId');
-  const data = display.submitForm(fieldset, projectId);
-  todoController.addTodoList(data);
-}
-
-const createEvents = (word) => {
-	const {fieldset, open } = display.getFormData(word);
-	fieldset.addEventListener('keypress', e => {
-		if(e.keyCode === 13) {
-			if(word === 'project') submitFormProject(fieldset);
-			if (word === 'todo') submitFormTodo(fieldset);
-			display.makeBlankForm(fieldset);
-      window.location.reload();
-		};
-	});
-  if (word === 'project') {
-    const tags = display.getProjectList();
-    if (tags.length > 0) {
-      tags.forEach(tag => {
-        tag.addEventListener('click', () => updateCurrentProject(tag));
-      })
-      updateCurrentProject(tags[tags.length - 1]);
+  const setInitialCurrentProject = () => {
+    const projectId = logicController.getCurrentProject();
+    if (projectId) {
+      const lastProject = displayController.lastCurrentProject(projectId);
+      if (lastProject) updateCurrentProject(lastProject);
     }
-  }
+  };
 
-}
+  const afterSubmission = (form) => {
+    displayController.makeBlankForm(form);
+    window.location.reload();
+  };
 
-['project', 'todo'].forEach(word => createEvents(word));
+  const init = () => {
+    logicController.set();
+    displayController.setMainDisplay();
+    projectSetting();
+    setInitialCurrentProject();
+  };
 
-// setCurrentProject();
+  const formSubmissionEvent = (form, sort) => {
+    form.addEventListener('keypress', (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        if (sort === 'project') submitFormProject(form);
+        if (sort === 'todo') submitFormTodo(form);
+        afterSubmission(form);
+      }
+    });
+  };
+
+  const projectSwitchEvent = () => {
+    const buttons = displayController.getProjectList();
+    if (buttons.length > 0) {
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          updateCurrentProject(button);
+          window.location.reload();
+        });
+      });
+    }
+  };
+
+  const deleteUnit = (button) => {
+    // deleteUnit: display, logic
+  };
+
+  const deleteEvent = (word) => {
+    // getDeleteButtonAll: display
+    // deleteUnit
+  };
+
+  const doneUnit = (button) => {
+    // doneUnit: display, logic
+  };
+
+  const doneEvent = (word) => {
+    // getDoneButtonAll: display
+    // doneUnit
+  };
+
+  const programResetEvent = () => {
+    const resetBtn = displayController.getResetButton();
+    resetBtn.addEventListener('click', () => {
+      logicController.resetAll();
+      window.location.reload();
+    });
+  };
+
+  const createEvents = (word) => {
+    const { form } = displayController.getFormLayout(word);
+    // const { form, open } = displayController.getFormLayout(word);
+    formSubmissionEvent(form, word);
+    if (word === 'todo') {
+      deleteEvent(word);
+      doneEvent(word);
+    }
+    if (word === 'project') {
+      projectSwitchEvent();
+      programResetEvent();
+    }
+  };
+
+  const start = () => {
+    init();
+    ['project', 'todo'].forEach(word => createEvents(word));
+  };
+
+  return { start };
+})();
+
+interfaceMain.start();

@@ -1,0 +1,5 @@
+localStorage
+- currentProjectId: after click, toggle exchange current project
+- lastProjectId: to add project, append id after last one
+- project: array of projects
+- todo: array of todos
