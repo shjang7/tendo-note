@@ -73,21 +73,31 @@ const interfaceMain = (() => {
   };
 
   const deleteUnit = (button) => {
-    // deleteUnit: display, logic
+		const id = displayController.deleteUnit(button);
+		logicController.deleteUnit(id);
   };
 
   const deleteEvent = (word) => {
-    // getDeleteButtonAll: display
-    // deleteUnit
+		const deleteAllButton = displayController.getDeleteButtonAll(word);
+		deleteAllButton.forEach((deleteBtn) => {
+			deleteBtn.addEventListener('click', () =>{
+				deleteUnit(deleteBtn);
+			});
+		});
   };
 
   const doneUnit = (button) => {
-    // doneUnit: display, logic
+		const id = displayController.doneUnit(button);
+		logicController.doneUnit(id);
   };
 
   const doneEvent = (word) => {
-    // getDoneButtonAll: display
-    // doneUnit
+		const doneAllBtn = displayController.getDoneButtonAll(word);
+		doneAllBtn.forEach((doneBtn) => {
+			doneBtn.addEventListener('click', () => {
+				doneUnit(doneBtn);
+			});
+		});
   };
 
   const programResetEvent = () => {

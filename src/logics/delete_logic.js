@@ -2,8 +2,10 @@ import logicUtils from './logic_utils';
 
 const deleteLogic = (() => {
   const deleteUnit = (id) => {
-    // id: 'to-1'
-    // getJsonInfoFromStorage, updateJsonInfoToStorage
+		const sort = id.split('-')[0];
+		const data = logicUtils.getJsonInfoFromStorage(sort);
+		const updated = (data ? data.filter(e => e.id !== id) : []);
+		logicUtils.updateJsonInfoToStorage({ sort, data:updated });
   };
 
   const resetAll = () => {
@@ -14,3 +16,4 @@ const deleteLogic = (() => {
 })();
 
 export default deleteLogic;
+
