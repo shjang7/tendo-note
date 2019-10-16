@@ -1,14 +1,20 @@
-# Todo
-This is a Todo app for memo of project unit.
+# Tendo-note
+This is a To-do app to have a memo of projects. "Tendo" is Swahili language meaning "To-do".
 
-This is part of the Javascript Constructor Project in the Odin Project's Javascript Curriculum. <br />
-Find it at [here](https://www.theodinproject.com/courses/javascript/lessons/tendo-note).
+This is part of the Javascript Project in the Odin Project's Curriculum. <br />
+Find it at [here](https://www.theodinproject.com/courses/javascript/lessons/todo-list).
 
 ## Function Description
-
+- Add / Edit / Delete for to-do
+- Each to-do is able to collect info about "title", "due-date", "priority", "description"
+- priority color
+  * light gray: normal task
+  * Dark gray: done task
+  * light red: urgent priority task
 
 ## Technologies
 - Javascript: ECMAScript 2018 (es6)
+- localStorage
 - HTML 5
 - CSS 3
 
