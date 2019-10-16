@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=devise-width,height=device-height, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./../assets/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="./../assets/css/style.css">
     <title>Tendo Note</title>
@@ -28,25 +30,64 @@
             </div>
           </fieldset>
         </form>
+        <div class="setting">
+          <i class="fas fa-edit edit"></i>
+          <i class="far fa-times-circle delete"></i>
+        </div>
       </section>
       <section id="todo" class="col-md-8 secondary-bg">
         <h1 class="h-title">Todo</h1>
         <h1 class="create-form">+</h1>
         <div class="todo-content-group">
-          <div class="todo-content">
+          <div class="todo-content priority-normal">
+            <input class="done" type="checkbox">
+            </input>
             <div class="title">
               First project one todo
             </div>
             <div class="date">
               03/nov/2019
             </div>
+            <div class="description">
+              example description
+            </div>
+            <div class="setting">
+              <i class="fas fa-edit edit"></i>
+              <i class="far fa-times-circle delete"></i>
+            </div>
           </div>
-          <div class="todo-content">
+          <div class="todo-content priority-urgent">
+            <input class="done" type="checkbox">
+            </input>
             <div class="title">
               First project two todo
             </div>
             <div class="date">
               04/nov/2019
+            </div>
+            <div class="description">
+              example description
+            </div>
+            <div class="setting">
+              <i class="fas fa-edit edit"></i>
+              <i class="far fa-times-circle delete"></i>
+            </div>
+          </div>
+          <div class="todo-content priority-normal done">
+            <input class="done" type="checkbox">
+            </input>
+            <div class="title">
+              First project two todo
+            </div>
+            <div class="date">
+              04/nov/2019
+            </div>
+            <div class="description">
+              example description
+            </div>
+            <div class="setting">
+              <i class="fas fa-edit edit"></i>
+              <i class="far fa-times-circle delete"></i>
             </div>
           </div>
         </div>

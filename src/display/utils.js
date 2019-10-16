@@ -27,20 +27,11 @@ const utils = (() => {
     });
   };
 
-  const focusSet = () => {
-    const formGroup = document.querySelectorAll('form');
-    for (let i = 0; i < formGroup.length; i++) {
-      if (formGroup[i].style.display !== 'none') {
-        formGroup[i].querySelector('input').focus();
-        break;
-      }
-    }
+  const focusSet = (target) => {
+    if (target) target.querySelector('input').focus();
   };
 
-  const eventSet = () => {
-    resizeTextarea();
-    focusSet();
-  };
+  const reloadScreen = () => window.location.reload();
 
   const eliminateFirstOfDash = words => words.split('-')[1];
 
@@ -58,15 +49,23 @@ const utils = (() => {
 
   const includeSpace = word => word.split(' ').length > 1;
 
+  const dynamicSetting = () => {
+    resizeTextarea();
+    focusSet();
+  };
 
   return {
     createTag,
     getDateFromToday,
-    eventSet,
     eliminateFirstOfDash,
     exchangeDashToCapital,
     exchangeSpaceToDash,
     includeSpace,
+    resizeTextarea,
+    focusSet,
+    reloadScreen,
+    dynamicSetting,
+    capitalize,
   };
 })();
 

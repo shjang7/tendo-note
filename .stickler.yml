@@ -6,3 +6,5 @@ linters:
 files:
   ignore:
     - 'dist/main.js'
+    - '.eslintrc.js'
+    - '.eslintrc.json'

@@ -1,16 +1,18 @@
 import { savings } from './objects';
-import logicUtils from './logic_utils';
+import storage from './storage';
 
-const provideLogic = (() => {
+const readLogic = (() => {
   const getCurrentProject = () => {
-    const ids = logicUtils.getJsonInfoFromStorage('ids');
+    const ids = storage.getJsonInfoFromStorage('ids');
     if (!ids) return undefined;
     return ids.projectCurrentId;
   };
   const getProjectList = () => savings.projectList;
   const getTodoListForProject = () => savings.todoListForProject;
 
-  return { getCurrentProject, getProjectList, getTodoListForProject };
+  return {
+    getCurrentProject, getProjectList, getTodoListForProject,
+  };
 })();
 
-export default provideLogic;
+export default readLogic;
