@@ -2,9 +2,10 @@ import createForm from './create_form';
 import utils from './utils';
 
 const commonUsage = (() => {
-  const setting = () => {
+  const setting = (create) => {
     const tag = utils.createTag({ tag: 'div', classes: 'setting' });
-    tag.appendChild(utils.createTag({ tag: 'i', classes: 'edit fas fa-edit cursor-pointer' }));
+    if(create) tag.appendChild(utils.createTag({ tag: 'i', classes: 'create-form far fa-plus-square cursor-pointer' }));
+    tag.appendChild(utils.createTag({ tag: 'i', classes: 'edit fas fa-wrench cursor-pointer' }));
     tag.appendChild(utils.createTag({ tag: 'i', classes: 'delete far fa-times-circle cursor-pointer' }));
     return tag;
   };
@@ -14,7 +15,7 @@ const commonUsage = (() => {
       tag: 'h1', classes: 'h-title', text: word,
     }));
     header.appendChild(utils.createTag({
-      tag: 'h1', classes: 'create-form cursor-pointer', text: '+',
+      tag: 'h1', classes: 'create-form cursor-pointer text-white', text: '+',
     }));
   };
 
@@ -43,7 +44,7 @@ const createLayout = (() => {
     mainContainer.appendChild(commonUsage.setGroup('project', projectContainer));
     mainContainer.appendChild(commonUsage.setGroup('todo', todoContainer));
     projectContainer.appendChild(createForm.mainForm({ option: 'project' }));
-    projectContainer.appendChild(commonUsage.setting());
+    projectContainer.appendChild(commonUsage.setting(true));
     todoContainer.appendChild(createForm.mainForm({ option: 'todo' }));
     return mainContainer;
   };

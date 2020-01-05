@@ -37,9 +37,9 @@ const readDisplay = (() => {
 
   const getFormLayout = (id) => {
     const selector = document.getElementById(id);
-    const open = selector.querySelector('.create-form');
+    const opens = selector.querySelectorAll('.create-form');
     const form = selector.querySelector('form');
-    return { form, open };
+    return { form, opens };
   };
 
   const getRadioInfo = (input, data) => {
