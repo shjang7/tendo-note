@@ -140,17 +140,17 @@ const interfaceMain = (() => {
     });
   };
 
-  const openFormEvent = (open, form) => {
-    open.addEventListener('click', () => {
+  const openFormEvent = (opens, form) => {
+    opens.forEach(open => open.addEventListener('click', () => {
       displayInterface.otherButtonOff(open);
       displayInterface.toggleNewForm(form);
       displayInterface.focusSet(form);
-    });
+    }));
   };
 
   const createEvents = (word) => {
-    const { open, form } = displayInterface.getFormLayout(word);
-    openFormEvent(open, form);
+    const { opens, form } = displayInterface.getFormLayout(word);
+    openFormEvent(opens, form);
     formSubmissionEvent(form, word);
     editEvent(word);
     deleteEvent(word);
