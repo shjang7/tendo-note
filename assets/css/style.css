@@ -218,10 +218,10 @@ textarea.description {
   color: #808080;
 }
 
+.text-white,
 .done .edit,
 .done .delete,
-.primary-bg .edit,
-.primary-bg .delete {
+.primary-bg i {
   color: white;
 }
 
