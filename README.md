@@ -2,7 +2,7 @@
 This is a To-do app to have a memo of projects. "Tendo" is Swahili language meaning "To-do".
 
 This is part of the Javascript Project in the Odin Project's Curriculum. <br />
-Find it at [here](https://www.theodinproject.com/courses/javascript/lessons/todo-list).
+Find it [here](https://www.theodinproject.com/courses/javascript/lessons/todo-list).
 
 ## Function Description
 - Add / Edit / Delete for to-do
