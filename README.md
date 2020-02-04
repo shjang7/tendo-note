@@ -1,8 +1,12 @@
-# Tendo-note
-This is a To-do app to have a memo of projects. "Tendo" is Swahili language meaning "To-do".
+<h1 align="center">Welcome to Tendo Note 👋</h1>
 
-This is part of the Javascript Project in the Odin Project's Curriculum. <br />
-Find it [here](https://www.theodinproject.com/courses/javascript/lessons/todo-list).
+This is a to-do app to have a memo of projects. "Tendo" is Swahili language meaning "To-do".
+
+The main requirement can be found [here](https://www.theodinproject.com/courses/javascript/lessons/todo-list).
+
++ [beginning concept notes](./docs)
++ screenshot<br />
+![](./docs/screenshot.png)
 
 ## Function Description
 - Add / Edit / Delete for to-do
@@ -18,15 +22,37 @@ Find it [here](https://www.theodinproject.com/courses/javascript/lessons/todo-li
 - HTML 5
 - CSS 3
 
+## Getting Started
+
+#### execution directory
+```
+./dist/index.html
+```
+
+#### javascript source files
+```
+./src/
+```
+
 ## Deployment
 
-- [Online Deployment](https://shjang7.github.io/tendo-note/dist/index.html)
+### ✨ [Live Demo](https://shjang7.github.io/tendo-note/dist/)
 
 ## Contributors
 
-This is a collaborative project by us: [Suhyeon Jang](https://github.com/shjang7) [Grace Mugoiri](https://github.com/grace-mugoiri)
+👤 **Suhyeon Jang**
 
-## Contributing
+- Github: [@shjang7](https://github.com/shjang7)
+- LinkedIn: [@shjang](https://www.linkedin.com/in/shjang/)
+- Twitter: [@shjang12](https://twitter.com/shjang12)
+
+👤 **Grace Mugoiri**
+
+- Github: [@mugos](https://github.com/grace-mugoiri)
+- LinkedIn: [@grace-mugoiri](https://www.linkedin.com/in/grace-mugoiri-829019134/)
+- Twitter: [@GraciaMugoiri](https://twitter.com/GraciaMugoiri)
+
+## 🤝 Contributing
 
 1. Fork it (https://github.com/shjang7/tendo-note/fork)
 2. Create your feature branch (git checkout -b feature/[choose-a-name])
