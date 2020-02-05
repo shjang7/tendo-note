@@ -12,12 +12,12 @@ body {
 }
 
 .primary-bg {
-  background-color: #4682B4; /* steel */
+  background-color: #219b21;
 }
 
 .current-project,
 .secondary-bg {
-  background-color: #57A0D3; /* carolina */
+  background-color: #45B649;
 }
 
 [class*=col-] {
@@ -93,7 +93,7 @@ body {
 }
 
 #project .h-title {
-  margin-right: calc(100% - 16rem);
+  margin-right: calc(100% - 15rem);
 }
 
 #todo .h-title {
@@ -190,16 +190,16 @@ textarea.description {
 
 .priority-normal {
   border: 3px solid #006400;
-  background-color: #D3D3D3;
+  background-color: transparent;
 }
 
 .priority-urgent {
   border: 3px solid #8B0000;
-  background-color: #FFCDD2;
+  background-color: #ff7777;
 }
 
 .done {
-  background-color: #808080;
+  opacity: .5;
 }
 
 .done-btn {
